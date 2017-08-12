@@ -71,8 +71,12 @@
                 });
 
                 $("#canvasInAPerfectWorld").on("touchstart",function(e){
-                  painting = true;
-                  e.preventDefault();
+                  event.preventDefault();
+                  var mouseX = e.pageX - this.offsetLeft;
+                  var mouseY = e.pageY - this.offsetTop;
+                  paint = true;
+                  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+                  redraw();
                 });
 
               }); 
