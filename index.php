@@ -17,12 +17,9 @@
         * {
           font-family: 'Indie Flower', cursive;
         }
-        body,
-        html{
+        body {
             overflow: hidden;
-            margin: 0;
-            padding: 0;
-        } 
+        }
         .image{
               text-align: center;
         }
@@ -62,10 +59,7 @@
                 $("#submitAnswer").click(function(){
                    submitAnswer();
                 });
-                // Disable scrolling.
-                document.ontouchmove = function (e) {
-                  e.preventDefault();
-                }
+
               }); 
             
               canva = context = document.getElementById('canvasInAPerfectWorld');
@@ -74,56 +68,25 @@
               context.fillStyle = "white"; 
               context.textAlign = "center";
               context.strokeText("Draw Here!",canva.width/2, canva.height/2);
-
-              /*
               $('#canvasInAPerfectWorld').mousedown(function(e){
-                  e.preventDefault();
                   var mouseX = e.pageX - this.offsetLeft;
-                  var mouseY = e.pageY - this.offsetTop;        
+                  var mouseY = e.pageY - this.offsetTop;
+                        
                   paint = true;
                   addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
                   redraw();
                });
-                
+ 
                 $('#canvasInAPerfectWorld').mousemove(function(e){
                   if(paint){
                     addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
                     redraw();
                   }
-                }); */
-
-                $("#canvasInAPerfectWorld").on("touchend",function(e){
-                  painting = false;
-                 });
-
-                $("#canvasInAPerfectWorld").on("touchstart",function(e){
-                  e.preventDefault();
-                  var mouseX = e.pageX - this.offsetLeft;
-                  var mouseY = e.pageY - this.offsetTop;        
-                  paint = true;
-                  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-                  redraw();
                 });
-
-                $("#canvasInAPerfectWorld").on("touchmove",function(e){  
-                  if(paint){
-                    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-                    redraw();
-                  }
-                });
-                
-                /*
-                $('#canvasInAPerfectWorld').touchmove(function(e) {
-                  e.preventDefault();
-                  if(paint){
-                    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-                    redraw();
-                  }
-                }); 
 
                 $('#canvasInAPerfectWorld').mouseup(function(e){
                   paint = false;
-                });*/
+                });
 
                 var clickX = new Array();
                 var clickY = new Array();
@@ -231,8 +194,7 @@
                         clearCanvas();
                       }
                       else{
-                        alert("Incorrect, Try Again!");
-                        clearCanvas();
+                        alert("No Exactly, Try Again!")
                       }
 
                     },
