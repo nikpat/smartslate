@@ -74,7 +74,7 @@
 
               }); 
             
-              canva = context = document.getElementById('canvasInAPerfectWorld');
+              canva = document.getElementById('canvasInAPerfectWorld');
               context = canva.getContext("2d");
               context.font = "30px Comic Sans MS";
               context.fillStyle = "white"; 
@@ -216,7 +216,6 @@
                       console.log(err);
                     }
                   );
-                  
                 }
         </script>
     </body>

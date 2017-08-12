@@ -34,6 +34,7 @@
             
         </header>
         <script src="js/sketch.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>
 
         var COLOURS = [ '#E3EB64', '#A7EBCA', '#FFFFFF', '#D8EBA7', '#868E80' ];
@@ -87,6 +88,12 @@
                 
             }
             });
+        </script>
+        <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+        <script>
+        $(document).ready(function(){
+            canva = $("canvas")[0];
+            context = canva.getContext("2d");
 
             $("#clearCanvas").click(function(){
               clearCanvas();
@@ -99,6 +106,12 @@
                submitAnswer();
             });
 
+            function clearCanvas(){
+                  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+                  clickX = new Array();
+                  clickY = new Array();
+                  clickDrag = new Array();  
+            }
 
             function submitAnswer(){
               var img = new Image();
@@ -182,7 +195,32 @@
                 }
 
                 var app = new Clarifai.App({apiKey: 'e73cbb00f5e448008f470e9cf0b90b33'});
-        
+                function submitAnswer(){
+                  var img = new Image();
+                  img.src = canva.toDataURL();
+                  var imageBase64 = img.src.replace("data:image/png;base64,", "");  
+                  app.models.predict("ss", {base64: imageBase64}).then(
+                    function(response) {
+                      console.log(response);
+                      var prediction = response.outputs[0].data.concepts[0].name;
+                      console.log(prediction+"=========="+response.outputs[0].data.concepts[0].value);
+                      console.log(answer);
+                      if(prediction==answer){
+                        alert("Great Job!!!");
+                        answer = undefined;
+                        clearCanvas();
+                      }
+                      else{
+                        alert("No Exactly, Try Again!")
+                      }
+
+                    },
+                    function(err) {
+                      console.log(err);
+                    }
+                  );
+                }
+        });
         </script>
     </body>
 </html>
