@@ -34,7 +34,7 @@
             </div>
    
          
-           <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;" width="300px" height="500px"></canvas>     
+           <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;" width="350px" height="380px"></canvas>     
       
       
 
