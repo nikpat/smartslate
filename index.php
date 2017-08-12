@@ -42,7 +42,7 @@
             </div>
    
            <div class="image">
-            <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;cursor: pointer;" width="350px" height="500px"></canvas>     
+            <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;cursor: pointer;" width="350px" height="450px"></canvas>     
            </div>
       
 
@@ -84,21 +84,22 @@
                   addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
                   redraw();
                });
-                /*
+                
                 $('#canvasInAPerfectWorld').mousemove(function(e){
                   if(paint){
                     addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
                     redraw();
                   }
                 });
-                */
-                $('#canvasInAPerfectWorld').addEventListener('touchmove', function(e) {
+                
+                /*
+                $('#canvasInAPerfectWorld').touchmove(function(e) {
                   e.preventDefault();
                   if(paint){
                     addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
                     redraw();
                   }
-                });
+                }); */
 
                 $('#canvasInAPerfectWorld').mouseup(function(e){
                   paint = false;
