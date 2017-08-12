@@ -80,10 +80,12 @@
               context.fillStyle = "white"; 
               context.textAlign = "center";
               context.strokeText("Draw Here!",canva.width/2, canva.height/2);
+
+
               $('#canvasInAPerfectWorld').mousedown(function(e){
+                  event.preventDefault();
                   var mouseX = e.pageX - this.offsetLeft;
                   var mouseY = e.pageY - this.offsetTop;
-                        
                   paint = true;
                   addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
                   redraw();
