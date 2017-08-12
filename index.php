@@ -42,7 +42,7 @@
             </div>
    
            <div class="image">
-            <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;cursor: pointer;" width="350px" height="380px"></canvas>     
+            <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;cursor: pointer;" width="350px" height="500px"></canvas>     
            </div>
       
 
@@ -65,11 +65,6 @@
                 // Disable scrolling.
                 document.ontouchmove = function (e) {
                   e.preventDefault();
-                }
-
-                // Enable scrolling.
-                document.ontouchmove = function (e) {
-                  return true;
                 }
               }); 
             
