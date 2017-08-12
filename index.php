@@ -17,7 +17,9 @@
         * {
           font-family: 'Indie Flower', cursive;
         }
-
+        body {
+            overflow: hidden;
+        }
         </style>
         <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
     </head>
