@@ -78,6 +78,12 @@
                   addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
                   redraw();
                 });
+                 $("#canvasInAPerfectWorld").on("touchmove",function(e){ 
+                   if(paint){
+                    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                    redraw();
+                  } 
+                 });
 
               }); 
             
