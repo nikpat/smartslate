@@ -23,6 +23,16 @@
         .image{
               text-align: center;
         }
+        canvas {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            outline: none;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* mobile webkit */
+        } 
         </style>
         <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
     </head>
@@ -59,6 +69,8 @@
                 $("#submitAnswer").click(function(){
                    submitAnswer();
                 });
+
+
 
               }); 
             
