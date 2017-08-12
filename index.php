@@ -79,27 +79,16 @@
                   redraw();
                 });
 
-                
-
-
               }); 
             
-              canva = document.getElementById('canvasInAPerfectWorld');
+              canva = context = document.getElementById('canvasInAPerfectWorld');
               context = canva.getContext("2d");
               context.font = "30px Comic Sans MS";
               context.fillStyle = "white"; 
               context.textAlign = "center";
               context.strokeText("Draw Here!",canva.width/2, canva.height/2);
 
-              canva.addEventListener("touchmove", function (e) {
-                  var touch = e.touches[0];
-                  var mouseEvent = new MouseEvent("mousemove", {
-                    clientX: touch.clientX,
-                    clientY: touch.clientY
-                  });
-                  canvas.dispatchEvent(mouseEvent);
-                }, false);
-              
+
               $('#canvasInAPerfectWorld').mousedown(function(e){
                   event.preventDefault();
                   var mouseX = e.pageX - this.offsetLeft;
