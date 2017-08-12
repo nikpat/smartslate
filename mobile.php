@@ -86,7 +86,102 @@
                 }
                 
             }
-        });
+            });
+
+            $("#clearCanvas").click(function(){
+              clearCanvas();
+            });
+            $("#getQuestion").click(function(){
+               getQuestion();
+            });
+
+            $("#submitAnswer").click(function(){
+               submitAnswer();
+            });
+
+
+            function submitAnswer(){
+              var img = new Image();
+              img.src = canva.toDataURL();
+              var imageBase64 = img.src.replace("data:image/png;base64,", "");  
+              app.models.predict("ss", {base64: imageBase64}).then(
+                function(response) {
+                  console.log(response);
+                  var prediction = response.outputs[0].data.concepts[0].name;
+                  console.log(prediction+"=========="+response.outputs[0].data.concepts[0].value);
+                  console.log(answer);
+                  if(prediction==answer){
+                    alert("Great Job!!!");
+                    answer = undefined;
+                    clearCanvas();
+                  }
+                  else{
+                    alert("No Exactly, Try Again!")
+                  }
+
+                },
+                function(err) {
+                  console.log(err);
+                }
+              );
+              
+            }
+            function clearCanvas(){
+                  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+                  clickX = new Array();
+                  clickY = new Array();
+                  clickDrag = new Array();  
+                }
+
+                function numberToChar(numb){
+                  switch(numb) {
+                      case 1:
+                          return "One";
+                          break;
+                      case 2:
+                          return "Two";
+                          break;
+                      case 3:
+                          return "Three";
+                          break;
+                      case 4:
+                          return "Four";
+                          break;
+                      case 5:
+                          return "Five";
+                          break;
+                      case 6:
+                          return "Six";
+                          break;
+                      case 7:
+                          return "Seven";
+                          break;
+                      case 8:
+                          return "Eight";
+                      case 9:
+                          return "Nine";
+                      case 0:
+                          return "Zero";
+                      default:
+                          return "Error";
+                  }
+                }
+
+                var answer = undefined;
+
+                function getQuestion(){
+                  if(answer==undefined){
+                    var numb = Math.floor(Math.random()*10);
+                    answer = numb;
+                    var numbChar = numberToChar(numb);
+                  }
+                  else{
+                    var numbChar = numberToChar(answer);
+                  }
+                  alert("Draw "+ numbChar);
+                }
+
+                var app = new Clarifai.App({apiKey: 'e73cbb00f5e448008f470e9cf0b90b33'});
         
         </script>
     </body>
