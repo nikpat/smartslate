@@ -84,8 +84,16 @@
                   addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
                   redraw();
                });
- 
+                /*
                 $('#canvasInAPerfectWorld').mousemove(function(e){
+                  if(paint){
+                    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                    redraw();
+                  }
+                });
+                */
+                $('#canvasInAPerfectWorld').addEventListener('touchmove', function(e) {
+                  e.preventDefault();
                   if(paint){
                     addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
                     redraw();
