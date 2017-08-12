@@ -17,9 +17,12 @@
         * {
           font-family: 'Indie Flower', cursive;
         }
-        body {
+        body,
+        html{
             overflow: hidden;
-        }
+            margin: 0;
+            padding: 0;
+        } 
         .image{
               text-align: center;
         }
@@ -76,10 +79,12 @@
               context.fillStyle = "white"; 
               context.textAlign = "center";
               context.strokeText("Draw Here!",canva.width/2, canva.height/2);
+
+
               $('#canvasInAPerfectWorld').mousedown(function(e){
+                  e.preventDefault();
                   var mouseX = e.pageX - this.offsetLeft;
-                  var mouseY = e.pageY - this.offsetTop;
-                        
+                  var mouseY = e.pageY - this.offsetTop;        
                   paint = true;
                   addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
                   redraw();
@@ -202,7 +207,8 @@
                         clearCanvas();
                       }
                       else{
-                        alert("No Exactly, Try Again!")
+                        alert("Incorrect, Try Again!");
+                        clearCanvas();
                       }
 
                     },
