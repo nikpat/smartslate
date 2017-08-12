@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Smart Slate</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <link rel="stylesheet" href="fa/css/font-awesome.min.css"> 
         <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
@@ -19,6 +19,9 @@
         }
         body {
             overflow: hidden;
+        }
+        .image{
+              text-align: center;
         }
         </style>
         <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
@@ -35,9 +38,9 @@
                 </span>
             </div>
    
-         
-           <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;" width="350px" height="380px"></canvas>     
-      
+           <div class="image">
+            <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;cursor: pointer;" width="350px" height="380px"></canvas>     
+           </div>
       
 
 
