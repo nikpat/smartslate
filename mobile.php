@@ -8,10 +8,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="css/example.css">
         <link rel="stylesheet" href="fa/css/font-awesome.min.css"> 
-        <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
         <style type="text/css">
         * {
-          font-family: 'Indie Flower', cursive;
+          font-family: 'Pacifico', cursive;
         }
             html, body {
                 background: #212121;
