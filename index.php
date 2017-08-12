@@ -59,6 +59,15 @@
                 $("#submitAnswer").click(function(){
                    submitAnswer();
                 });
+                // Disable scrolling.
+                document.ontouchmove = function (e) {
+                  e.preventDefault();
+                }
+
+                // Enable scrolling.
+                document.ontouchmove = function (e) {
+                  return true;
+                }
               }); 
             
               canva = context = document.getElementById('canvasInAPerfectWorld');
