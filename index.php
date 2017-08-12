@@ -70,7 +70,10 @@
                    submitAnswer();
                 });
 
-
+                $("#canvasInAPerfectWorld").on("touchstart",function(e){
+                  painting = true;
+                  e.preventDefault();
+                });
 
               }); 
             
