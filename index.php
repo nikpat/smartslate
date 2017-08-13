@@ -23,6 +23,12 @@
         .image{
               text-align: center;
         }
+        .result{
+            display: none;
+            text-align: center;
+            margin-top: 100px;
+            font-size: 60px;
+        }
         canvas {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -34,6 +40,7 @@
             -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* mobile webkit */
         } 
         </style>
+        <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
         <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
     </head>
     <body style="background:#353535;color: #ffffff;">
@@ -42,17 +49,23 @@
             </div>
             <div style="text-align:center">
                 <span style="margin: 10px;">
-                    <a id="getQuestion" href="javascript:void(0)" style="margin: 10px 15px 10px 10px;color: #FFF;"><i class="fa fa-question-circle fa-2x" aria-hidden="true"></i></a> 
-                    <a id="clearCanvas" href="javascript:void(0)" style="margin: 10px;color: #FFF;"><i class="fa fa-eraser fa-2x" aria-hidden="true"></i></a> 
-                    <a id="submitAnswer" href="javascript:void(0)" style="margin: 10px;color: #FFF;"><i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a>
+                    
+                    <a id="getQuestion" class="ibtn" href="javascript:void(0)" style="margin: 10px 15px 10px 10px;color: #FFF;"><i class="fa fa-play fa-2x" aria-hidden="true"></i></a> 
+                    <a id="submitAnswer" class="ibtn" href="javascript:void(0)" style="margin: 10px 25px 10px 19px;color: #FFF;"><i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a>
+                    <a id="clearCanvas" class="ibtn"  href="javascript:void(0)" style="margin: 10px;color: #FFF;"><i class="fa fa-eraser fa-2x" aria-hidden="true"></i></a> 
+                    <a id="loader" style="display:none;margin: 10px;color: #FFF;" href="javascript:void(0)"><i  class="fa fa-refresh fa-spin fa-3x fa-fw"></i></a>
                 </span>
             </div>
    
            <div class="image">
             <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;cursor: pointer;" width="350px" height="450px"></canvas>     
            </div>
-      
 
+           <div class="result">
+         
+           </div>
+           
+    
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>
@@ -179,6 +192,8 @@
                 var answer = undefined;
 
                 function getQuestion(){
+                  
+
                   if(answer==undefined){
                     var numb = Math.floor(Math.random()*10);
                     answer = numb;
@@ -187,7 +202,8 @@
                   else{
                     var numbChar = numberToChar(answer);
                   }
-                  alert("Draw "+ numbChar);
+                  responsiveVoice.speak("Draw "+ numbChar);
+                 
                 }
 
                 var app = new Clarifai.App({apiKey: 'e73cbb00f5e448008f470e9cf0b90b33'});
@@ -195,27 +211,42 @@
                 function submitAnswer(){
                   var img = new Image();
                   img.src = canva.toDataURL();
-                  var imageBase64 = img.src.replace("data:image/png;base64,", "");  
+                  var imageBase64 = img.src.replace("data:image/png;base64,", "");
+                  $("#loader").show();
+                  $(".ibtn").hide();
+                  $('#canvasInAPerfectWorld').slideUp();
+
+                  
                   app.models.predict("ss", {base64: imageBase64}).then(
                     function(response) {
                       console.log(response);
                       var prediction = response.outputs[0].data.concepts[0].name;
                       console.log(prediction+"=========="+response.outputs[0].data.concepts[0].value);
                       console.log(answer);
+                      $("#loader").hide();
                       if(prediction==answer){
-                        alert("Great Job!!!");
+                        $('.result').text("Good Job!!!");
+                        responsiveVoice.speak("Good Job!!!");
+                        $('.result').slideDown();
                         answer = undefined;
                         clearCanvas();
                       }
                       else{
-                        alert("No Exactly, Try Again!")
+                        $('.result').text("Try Again!");
+                        responsiveVoice.speak("Try Again!!!");
+                        $('.result').slideDown();
+                        clearCanvas();
                       }
-
+                      setTimeout(function(){
+                          $('.result').hide();
+                          $(".ibtn").show();
+                          $('#canvasInAPerfectWorld').slideDown();
+                        },2000);
                     },
                     function(err) {
                       console.log(err);
                     }
-                  );
+                  );  
                 }
         </script>
     </body>

@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="css/example.css">
         <link rel="stylesheet" href="fa/css/font-awesome.min.css"> 
         <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+        <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
         <style type="text/css">
         * {
           font-family: 'Pacifico', cursive;
@@ -25,7 +26,7 @@
                 <h1 style="font-size: 28px;">Smart Slate</h1>
                 <div>
                 <span style="margin: 10px;">
-                    <a id="getQuestion" href="javascript:void(0)" style="margin: 10px 15px 10px 10px;color: #FFF;"><i class="fa fa-question-circle fa-2x" aria-hidden="true"></i></a> 
+                    <a id="getQuestion" href="javascript:void(0)" style="margin: 10px 15px 10px 10px;color: #FFF;"><i class="fa fa-play fa-2x" aria-hidden="true"></i></a> 
                     <a id="clearCanvas" href="javascript:void(0)" style="margin: 10px;color: #FFF;"><i class="fa fa-eraser fa-2x" aria-hidden="true"></i></a> 
                     <a id="submitAnswer" href="javascript:void(0)" style="margin: 10px;color: #FFF;"><i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a>
                 </span>
@@ -191,7 +192,7 @@
                   else{
                     var numbChar = numberToChar(answer);
                   }
-                  alert("Draw "+ numbChar);
+                  responsiveVoice.speak("Draw "+ numbChar);
                 }
 
                 var app = new Clarifai.App({apiKey: 'e73cbb00f5e448008f470e9cf0b90b33'});
@@ -206,12 +207,13 @@
                       console.log(prediction+"=========="+response.outputs[0].data.concepts[0].value);
                       console.log(answer);
                       if(prediction==answer){
-                        alert("Great Job!!!");
+                        responsiveVoice.speak("Great Job!!!");
                         answer = undefined;
                         clearCanvas();
                       }
                       else{
-                        alert("No Exactly, Try Again!")
+                        responsiveVoice.speak("Oh no, Try Again!");
+                        clearCanvas();
                       }
 
                     },
