@@ -12,61 +12,40 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <link rel="stylesheet" href="fa/css/font-awesome.min.css"> 
+        <link rel="stylesheet" href="css/style.css"> 
         <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-        <style>
-        * {
-          font-family: 'Pacifico', cursive;
-        }
-        body {
-            overflow: hidden;
-        }
-        .image{
-              text-align: center;
-        }
-        .result{
-            display: none;
-            text-align: center;
-            margin-top: 100px;
-            font-size: 60px;
-        }
-        canvas {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            outline: none;
-            -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* mobile webkit */
-        } 
-        </style>
         <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
         <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
     </head>
-    <body style="background:#353535;color: #ffffff;">
+    <body>
             <div style="text-align:center">
-              <span style="font-size: 40px;">Smart Slate</span>
+              <span style="font-size: 40px; font-family: 'Pacifico', cursive;">Smart Slate</span>
             </div>
-            <div style="text-align:center">
-                <span style="margin: 10px;">
-                    
-                    <a id="getQuestion" class="ibtn" href="javascript:void(0)" style="margin: 10px 15px 10px 10px;color: #FFF;"><i class="fa fa-play fa-2x" aria-hidden="true"></i></a> 
-                    <a id="submitAnswer" class="ibtn" href="javascript:void(0)" style="margin: 10px 25px 10px 19px;color: #FFF;"><i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a>
-                    <a id="clearCanvas" class="ibtn"  href="javascript:void(0)" style="margin: 10px;color: #FFF;"><i class="fa fa-eraser fa-2x" aria-hidden="true"></i></a> 
-                    <a id="loader" style="display:none;margin: 10px;color: #FFF;" href="javascript:void(0)"><i  class="fa fa-refresh fa-spin fa-3x fa-fw"></i></a>
-                </span>
-            </div>
-   
-           <div class="image">
-            <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;cursor: pointer;" width="350px" height="450px"></canvas>     
-           </div>
-
-           <div class="result">
+            <div id="slate" style="display:none">
+                  <div style="text-align:center">
+                      <span style="margin: 10px;">
+                          
+                          <a id="getQuestion" class="ibtn" href="javascript:void(0)" style="margin: 10px 15px 10px 10px;color: #FFF;"><i class="fa fa-play fa-2x" aria-hidden="true"></i></a> 
+                          <a id="submitAnswer" class="ibtn" href="javascript:void(0)" style="margin: 10px 25px 10px 19px;color: #FFF;"><i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a>
+                          <a id="clearCanvas" class="ibtn"  href="javascript:void(0)" style="margin: 10px;color: #FFF;"><i class="fa fa-eraser fa-2x" aria-hidden="true"></i></a> 
+                          <a id="showInstruction" class="ibtn"  href="javascript:void(0)" style="margin: 10px;color: #FFF;"><i class="fa fa-info-circle fa-2x" aria-hidden="true"></i></a> 
+                          <a id="loader" style="display:none;margin: 10px;color: #FFF;" href="javascript:void(0)"><i  class="fa fa-refresh fa-spin fa-3x fa-fw"></i></a>
+                      </span>
+                  </div>
          
+                 <div class="image">
+                  <canvas id="canvasInAPerfectWorld" style="text-align: center;margin: auto;display: block;border: 5px solid white;border-radius: 5px;margin-top: 20px;background: #212121;cursor: pointer;box-shadow: 0px 0px 20px #616161;" width="350px" height="450px"></canvas>     
+                 </div>
+                 <div class="result">
+                 </div>
            </div>
-           
-    
-
+           <div id="instruction">
+             1. Press <i class="fa fa-play fa-2x" aria-hidden="true"></i> to get the instruction.<br>
+             2. Draw the instructed number on the slate.To clear the slate click <i class="fa fa-eraser fa-2x" aria-hidden="true"></i>.<br>
+             3. Send your answer by clicking <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>.<br>
+              <a id="play" href="javascript:void(0)"><h1 style="font-family: 'Cabin Sketch', cursive;">Lets Play!</h1></a>
+           </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>
             
@@ -85,7 +64,17 @@
 
 
 
-              }); 
+              });
+
+              $("#play").on("click",function(){
+                $("#instruction").slideUp();
+                $("#slate").slideDown();
+              });
+
+              $("#showInstruction").on("click",function(){
+                $("#instruction").slideDown();
+                $("#slate").slideUp();
+              });
             
               canva = document.getElementById('canvasInAPerfectWorld');
               context = canva.getContext("2d");
@@ -215,9 +204,8 @@
                   $("#loader").show();
                   $(".ibtn").hide();
                   $('#canvasInAPerfectWorld').slideUp();
-
-                  
-                  app.models.predict("ss", {base64: imageBase64}).then(
+                  if(clickX.length > 1){
+                    app.models.predict("ss", {base64: imageBase64}).then(
                     function(response) {
                       console.log(response);
                       var prediction = response.outputs[0].data.concepts[0].name;
@@ -246,7 +234,21 @@
                     function(err) {
                       console.log(err);
                     }
-                  );  
+                  ); 
+                  }
+                  else{
+                      $('.result').text("Draw then press plane!");
+                      responsiveVoice.speak("Draw then press plane!!!");
+                      $('.result').slideDown();
+                      clearCanvas();
+                      $("#loader").hide();
+                      setTimeout(function(){
+                          $('.result').hide();
+                          $(".ibtn").show();
+                          $('#canvasInAPerfectWorld').slideDown();
+                        },2000);
+                  }
+                   
                 }
         </script>
     </body>
