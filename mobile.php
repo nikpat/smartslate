@@ -226,7 +226,7 @@
                     function(err) {
                       console.log(err);
                     }
-                  );
+                  ); 
                 }
                 else{
                   responsiveVoice.speak("Follow the instruction!");
